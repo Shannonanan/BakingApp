@@ -14,6 +14,7 @@ import java.util.List;
 
 import co.za.bakingapp.Data.Repository;
 import co.za.bakingapp.Data.models.RecipeDatum;
+import co.za.bakingapp.Features.RecipeSteps.RecipeStepsActivity;
 import co.za.bakingapp.R;
 
 public class GetAllRecipesFragment extends Fragment {
@@ -23,8 +24,9 @@ public class GetAllRecipesFragment extends Fragment {
 
 
     public GetAllRecipesFragment() {
+        setRetainInstance(true); }
 
-    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -66,6 +68,7 @@ public class GetAllRecipesFragment extends Fragment {
             @Override
             public void onRecipeClicked(RecipeDatum entity) {
                //pass to the next activity
+                startActivity(RecipeStepsActivity.getCallingIntent(getContext(), entity));
             }
         };
 

@@ -12,6 +12,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 import co.za.bakingapp.Data.models.RecipeDatum;
+import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
 
@@ -24,7 +25,7 @@ public class Repository {
     }
 
 
-    public io.reactivex.Observable<RecipeDatum[]> getRecipes2() {
+    public Observable<RecipeDatum[]> getRecipes2() {
 
             return io.reactivex.Observable.create(new ObservableOnSubscribe<RecipeDatum[]>() {
                 @Override

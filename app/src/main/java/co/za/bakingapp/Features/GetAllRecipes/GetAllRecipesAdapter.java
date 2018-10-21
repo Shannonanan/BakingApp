@@ -49,9 +49,9 @@ public class GetAllRecipesAdapter extends RecyclerView.Adapter<GetAllRecipesAdap
 
     @Override
     public void onBindViewHolder(@NonNull GetAllRecipesViewHolder getAllRecipesViewHolder, int i) {
-            final RecipeDatum recipeDatum = this.getRecipesCollection.get(i);
+        final RecipeDatum recipeDatum = this.getRecipesCollection.get(i);
 
-            getAllRecipesViewHolder.tv_recipe_title.setText(recipeDatum.getName());
+        getAllRecipesViewHolder.tv_recipe_title.setText(recipeDatum.getName());
 
         getAllRecipesViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,13 +63,14 @@ public class GetAllRecipesAdapter extends RecyclerView.Adapter<GetAllRecipesAdap
 
     @Override
     public int getItemCount() {
-      return (this.getRecipesCollection != null) ? this.getRecipesCollection.size() : 0;
+        return (this.getRecipesCollection != null) ? this.getRecipesCollection.size() : 0;
     }
 
 
+    static class GetAllRecipesViewHolder extends RecyclerView.ViewHolder {
+        @BindView(R.id.tv_recipe_title)
+        TextView tv_recipe_title;
 
-    static class GetAllRecipesViewHolder extends RecyclerView.ViewHolder{
-        @BindView(R.id.tv_recipe_title) TextView tv_recipe_title;
         public GetAllRecipesViewHolder(@NonNull View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
@@ -90,7 +91,7 @@ public class GetAllRecipesAdapter extends RecyclerView.Adapter<GetAllRecipesAdap
         }
     }
 
-    public void setOnItemClickListener (GetAllRecipesAdapter.OnRecipeClicked onItemClickListener) {
+    public void setOnItemClickListener(GetAllRecipesAdapter.OnRecipeClicked onItemClickListener) {
         this.onItemClickListener = onItemClickListener;
     }
 
