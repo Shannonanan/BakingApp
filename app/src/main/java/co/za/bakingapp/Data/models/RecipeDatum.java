@@ -4,10 +4,11 @@ package co.za.bakingapp.Data.models;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.List;
 
 
-public class RecipeDatum {
+public class RecipeDatum implements Serializable{
 
     @SerializedName("id")
     @Expose

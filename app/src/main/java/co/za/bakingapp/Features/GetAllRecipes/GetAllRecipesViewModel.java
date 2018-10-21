@@ -22,6 +22,11 @@ public class GetAllRecipesViewModel extends ViewModel {
     private final Repository mRepository;
      SetCollection setCollection;
 
+
+    public interface SetCollection {
+        void setInfoCollection(List<RecipeDatum> newList);
+    }
+
     GetAllRecipesViewModel(Repository mRepository, Context context) {
         this.mRepository = mRepository;
     }
@@ -30,10 +35,6 @@ public class GetAllRecipesViewModel extends ViewModel {
         this.setCollection = setCollection;
     }
 
-    public interface SetCollection {
-        void setInfoCollection(List<RecipeDatum> newList);
-
-    }
 
     public void doSomeWork() {
         mRepository.getRecipes2().subscribeOn(Schedulers.newThread())
