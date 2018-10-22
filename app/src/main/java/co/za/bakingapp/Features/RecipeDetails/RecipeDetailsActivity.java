@@ -6,16 +6,23 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import java.io.Serializable;
+import java.util.List;
+
+import co.za.bakingapp.Data.models.RecipeDatum;
 import co.za.bakingapp.Data.models.Step;
 import co.za.bakingapp.R;
 
 public class RecipeDetailsActivity extends AppCompatActivity {
 
 
+    private static final String RECIPE_DATA = "recipeSteps" ;
+    private static final String STEP_DATA = "step";
 
-    public static Intent getCallingIntent(Context context, Step step) {
+    public static Intent getCallingIntent(Context context, int position, RecipeDatum recipeDatum) {
         Intent intent = new Intent(context, RecipeDetailsActivity.class);
-        intent.putExtra("step", step);
+        intent.putExtra(RECIPE_DATA, recipeDatum);
+        intent.putExtra(STEP_DATA, position);
         return  intent;
     }
 
@@ -24,12 +31,14 @@ public class RecipeDetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_details);
         getSupportActionBar().hide();
-        Step step = (Step)getIntent().getSerializableExtra("step");
+        int position = getIntent().getIntExtra(STEP_DATA, 0);
+        RecipeDatum recipeDatum = (RecipeDatum)getIntent().getSerializableExtra(RECIPE_DATA);
 
         if(savedInstanceState == null){
 
             Bundle bundle = new Bundle();
-            bundle.putSerializable("step", step);
+            bundle.putSerializable(STEP_DATA, position);
+            bundle.putSerializable(RECIPE_DATA, recipeDatum);
 
         RecipeDetailsFragment recipeDetailsFragment = new RecipeDetailsFragment();
         recipeDetailsFragment.setArguments(bundle);

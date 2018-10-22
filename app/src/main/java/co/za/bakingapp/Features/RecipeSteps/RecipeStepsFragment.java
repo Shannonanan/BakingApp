@@ -70,8 +70,8 @@ public class RecipeStepsFragment extends Fragment{
 
         RecipeStepsAdapter.onStepClickedListener recipeStepClicked = new RecipeStepsAdapter.onStepClickedListener() {
             @Override
-            public void onStepClicked(Step step) {
-                    startActivity(RecipeDetailsActivity.getCallingIntent(getContext(), step));
+            public void onStepClicked(int position) {
+                    startActivity(RecipeDetailsActivity.getCallingIntent(getContext(), position, recipeDatum));
             }
         };
 
