@@ -16,6 +16,7 @@ import java.util.List;
 
 import co.za.bakingapp.Data.models.RecipeDatum;
 import co.za.bakingapp.Data.models.Step;
+import co.za.bakingapp.Features.RecipeDetails.RecipeDetailsActivity;
 import co.za.bakingapp.R;
 
 public class RecipeStepsFragment extends Fragment{
@@ -67,14 +68,14 @@ public class RecipeStepsFragment extends Fragment{
 
         recipeStepsAdapter.setInfoCollection(getSteps(recipeDatum));
 
-        RecipeStepsAdapter.onStepClickedListener recipeClicked = new RecipeStepsAdapter.onStepClickedListener() {
+        RecipeStepsAdapter.onStepClickedListener recipeStepClicked = new RecipeStepsAdapter.onStepClickedListener() {
             @Override
-            public void onStepClicked(Step step) {
-
+            public void onStepClicked(int position) {
+                    startActivity(RecipeDetailsActivity.getCallingIntent(getContext(), position, recipeDatum));
             }
         };
 
-        recipeStepsAdapter.setClickListener(recipeClicked);
+        recipeStepsAdapter.setClickListener(recipeStepClicked);
     }
 
 
