@@ -11,9 +11,11 @@ import co.za.bakingapp.R;
 
 public class RecipeDetailsActivity extends AppCompatActivity {
 
+
+
     public static Intent getCallingIntent(Context context, Step step) {
         Intent intent = new Intent(context, RecipeDetailsActivity.class);
-        intent.putExtra("detail", step);
+        intent.putExtra("step", step);
         return  intent;
     }
 
@@ -21,12 +23,21 @@ public class RecipeDetailsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_details);
+        getSupportActionBar().hide();
+        Step step = (Step)getIntent().getSerializableExtra("step");
 
         if(savedInstanceState == null){
+
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("step", step);
+
+        RecipeDetailsFragment recipeDetailsFragment = new RecipeDetailsFragment();
+        recipeDetailsFragment.setArguments(bundle);
+
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
-                .add(R.id.fragment_container_recipe_detail, new RecipeDetailsFragment())
-                .commit();}
+        .add(R.id.fragment_container_recipe_detail, recipeDetailsFragment)
+        .commit();}
     }
 
 
