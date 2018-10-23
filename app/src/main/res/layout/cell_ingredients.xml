@@ -10,13 +10,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.05"/>
+        app:layout_constraintGuide_percent="0.35"/>
     <android.support.constraint.Guideline
         android:id="@+id/guide2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.1"/>
+        app:layout_constraintGuide_percent="0.65"/>
 
     <android.support.constraint.Guideline
         android:id="@+id/guide3"
@@ -25,23 +25,25 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.15"/>
 
+
     <android.support.constraint.Guideline
-        android:id="@+id/guide6"
+        android:id="@+id/guide7"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.5"/>
+        app:layout_constraintGuide_percent="0.2"/>
 
     <TextView
         android:id="@+id/tv_quantity"
         style="@style/TextAppearance.AppCompat.Body1"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:gravity="center"
+        android:layout_marginStart="8dp"
+        android:gravity="left|center"
         android:text="@string/recipe_quantity"
         app:layout_constraintBottom_toTopOf="@+id/guide2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guide7"
         app:layout_constraintTop_toTopOf="@+id/guide1" />
 
     <TextView
@@ -49,24 +51,42 @@
         style="@style/Base.AlertDialog.AppCompat.Light"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:gravity="center"
+        android:layout_marginStart="8dp"
+        android:gravity="left|center"
         android:text="@string/recipe_ingredients"
         app:layout_constraintBottom_toTopOf="@+id/guide1"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guide7"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tv_measure"
+        style="@style/TextAppearance.AppCompat.Body1"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="8dp"
+        android:gravity="left|center"
+        android:text="@string/recipe_measure"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/guide7"
+        app:layout_constraintTop_toTopOf="@+id/guide2"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <ImageView
+        android:id="@+id/imageView"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:text="@string/recipe_measure"
-        android:gravity="center"
-        style="@style/TextAppearance.AppCompat.Body1"
-        app:layout_constraintBottom_toTopOf="@+id/guide3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guide7"
+        app:layout_constraintHorizontal_bias="0.571"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guide2" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/cookie" />
 
 </android.support.constraint.ConstraintLayout>
