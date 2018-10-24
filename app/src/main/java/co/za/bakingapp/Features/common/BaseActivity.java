@@ -20,7 +20,7 @@ public class BaseActivity extends AppCompatActivity {
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
-                .add(R.id.recyclerview_container, fragment)
+                .add(R.id.recyclerview_container_allrecipes, fragment)
                 .commit();
     }
 }

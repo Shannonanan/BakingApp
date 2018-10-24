@@ -18,6 +18,7 @@ public class RecipeDetailsActivity extends AppCompatActivity {
 
     private static final String RECIPE_DATA = "recipeSteps" ;
     private static final String STEP_DATA = "step";
+    private static final String TWO_PANE_LAYOUT = "two_pane_layout";
 
     public static Intent getCallingIntent(Context context, int position, RecipeDatum recipeDatum) {
         Intent intent = new Intent(context, RecipeDetailsActivity.class);
@@ -39,6 +40,7 @@ public class RecipeDetailsActivity extends AppCompatActivity {
             Bundle bundle = new Bundle();
             bundle.putSerializable(STEP_DATA, position);
             bundle.putSerializable(RECIPE_DATA, recipeDatum);
+            bundle.putBoolean(TWO_PANE_LAYOUT, false);
 
         RecipeDetailsFragment recipeDetailsFragment = new RecipeDetailsFragment();
         recipeDetailsFragment.setArguments(bundle);

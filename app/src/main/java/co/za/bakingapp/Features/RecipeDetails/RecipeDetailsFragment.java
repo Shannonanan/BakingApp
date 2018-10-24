@@ -51,6 +51,7 @@ public class RecipeDetailsFragment extends Fragment implements ExoPlayer.EventLi
     private static final String RECIPE_DATA = "recipeSteps";
     private static final String STEP_LIST = "steps_list";
     private static final String STEP_POSITION = "step_position";
+    private static final String TWO_PANE_LAYOUT = "two_pane_layout";
     private final String STATE_RESUME_WINDOW = "resumeWindow";
     private final String STATE_RESUME_POSITION = "resumePosition";
     private static final String TAG_PLAYING = "playing";
@@ -73,6 +74,7 @@ public class RecipeDetailsFragment extends Fragment implements ExoPlayer.EventLi
     private int mResumeWindow;
     private int stepPosition = 0;
     RecipeDatum recipeDatum;
+    private boolean twoPaneLayout;
 
     @Nullable
     @Override
@@ -93,6 +95,7 @@ public class RecipeDetailsFragment extends Fragment implements ExoPlayer.EventLi
             try {
                 recipeDatum = (RecipeDatum) getArguments().getSerializable(RECIPE_DATA);
                 stepPosition = getArguments().getInt(STEP_DATA);
+                twoPaneLayout = getArguments().getBoolean(TWO_PANE_LAYOUT);
                 stepsCollection = new ArrayList<>(recipeDatum.getSteps());
                 step = stepsCollection.get(stepPosition);
 
@@ -112,19 +115,25 @@ public class RecipeDetailsFragment extends Fragment implements ExoPlayer.EventLi
             tv_title.setText(step.getShortDescription());
             tv_description.setText(step.getDescription());
 
-            btn_next.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    increaseView();
-                }
-            });
+            if(twoPaneLayout) {
+                if(btn_next.getVisibility() == View.VISIBLE){
+                btn_next.setVisibility(View.GONE);
+                btn_previous.setVisibility(View.GONE);}
+            }else{
+                btn_next.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        increaseView();
+                    }
+                });
 
-            btn_previous.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    decreaseView();
-                }
-            });
+                btn_previous.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        decreaseView();
+                    }
+                });
+            }
         }
 
         ButterKnife.bind(this, view);

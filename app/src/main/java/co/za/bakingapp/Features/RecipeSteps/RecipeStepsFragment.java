@@ -29,11 +29,13 @@ import co.za.bakingapp.Data.models.Ingredient;
 import co.za.bakingapp.Data.models.RecipeDatum;
 import co.za.bakingapp.Data.models.Step;
 import co.za.bakingapp.Features.RecipeDetails.RecipeDetailsActivity;
+import co.za.bakingapp.Features.common.BaseActivitySteps;
 import co.za.bakingapp.R;
 
 public class RecipeStepsFragment extends Fragment {
 
     private static final String RECIPE_DATA = "recipes";
+    private static final String TWO_PANE_LAYOUT = "two_pane_layout";
     RecipeDatum recipeDatum;
     RecyclerView recyclerView;
     RecipeStepsAdapter recipeStepsAdapter;
@@ -42,7 +44,10 @@ public class RecipeStepsFragment extends Fragment {
     View view;
     LayoutInflater inflaterThis;
     ViewGroup containerThis;
-    @BindView(R.id.btn_ingredients) Button btn_ingredients;
+    @BindView(R.id.btn_ingredients)
+    Button btn_ingredients;
+    private boolean twoPaneLayout;
+    public OnIngredientClickListener mCallback;
 
     public RecipeStepsFragment() {
         setRetainInstance(true);
@@ -52,6 +57,11 @@ public class RecipeStepsFragment extends Fragment {
     public void onAttach(Context context) {
         super.onAttach(context);
         recipeDatum = new RecipeDatum();
+        mCallback = (OnIngredientClickListener) context;
+    }
+
+    public interface OnIngredientClickListener {
+        void onIngredientSelected(int position);
     }
 
 
@@ -60,16 +70,18 @@ public class RecipeStepsFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         inflaterThis = inflater;
         containerThis = container;
-         view = inflater.inflate(R.layout.fragment_recipe_steps, container, false);
+        view = inflater.inflate(R.layout.fragment_recipe_steps, container, false);
 
         ButterKnife.bind(this, view);
         steps = new ArrayList<>();
         if (savedInstanceState != null) {
             recipeDatum = (RecipeDatum) savedInstanceState.getSerializable(RECIPE_DATA);
+            twoPaneLayout = savedInstanceState.getBoolean(TWO_PANE_LAYOUT);
 
         } else {
             try {
                 recipeDatum = (RecipeDatum) getArguments().getSerializable("entity");
+                twoPaneLayout = getArguments().getBoolean(TWO_PANE_LAYOUT);
             } catch (NullPointerException ex) {
                 String message = ex.getMessage();
             }
@@ -79,35 +91,35 @@ public class RecipeStepsFragment extends Fragment {
     }
 
     @OnClick(R.id.btn_ingredients)
-    public void onIngredientsClick(){
+    public void onIngredientsClick() {
 
         final ConstraintLayout ingredients_display = view.findViewById(R.id.ingredients_list_view);
-        final ConstraintLayout  ingredients = view.findViewById(R.id.cl_listview);
-        listview  = (ListView) view.findViewById(R.id.lv_ingredients);
-        Button btn_close =view.findViewById(R.id.btn_close);
+        final ConstraintLayout ingredients = view.findViewById(R.id.cl_listview);
+        listview = (ListView) view.findViewById(R.id.lv_ingredients);
+        Button btn_close = view.findViewById(R.id.btn_close);
 
-        if(ingredients_display.getVisibility() == View.VISIBLE){
+        if (ingredients_display.getVisibility() == View.VISIBLE) {
             ingredients_display.setVisibility(View.GONE);
-        }else{
+        } else {
             btn_ingredients.setVisibility(View.GONE);
             ingredients_display.setVisibility(View.VISIBLE);
             ingredients.setVisibility(View.VISIBLE);
         }
 
-       btn_close.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View view) {
-               if(ingredients_display.getVisibility() == View.VISIBLE){
-                   btn_ingredients.setVisibility(View.VISIBLE);
-                   ingredients_display.setVisibility(View.GONE);
-                   ingredients.setVisibility(View.GONE);
-               }else{
-                   btn_ingredients.setVisibility(View.GONE);
-                   ingredients_display.setVisibility(View.VISIBLE);
-                   ingredients.setVisibility(View.VISIBLE);
-               }
-           }
-       });
+        btn_close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (ingredients_display.getVisibility() == View.VISIBLE) {
+                    btn_ingredients.setVisibility(View.VISIBLE);
+                    ingredients_display.setVisibility(View.GONE);
+                    ingredients.setVisibility(View.GONE);
+                } else {
+                    btn_ingredients.setVisibility(View.GONE);
+                    ingredients_display.setVisibility(View.VISIBLE);
+                    ingredients.setVisibility(View.VISIBLE);
+                }
+            }
+        });
 
 
         List<Ingredient> ingredientsList = new ArrayList<>();
@@ -131,7 +143,13 @@ public class RecipeStepsFragment extends Fragment {
         RecipeStepsAdapter.onStepClickedListener recipeStepClicked = new RecipeStepsAdapter.onStepClickedListener() {
             @Override
             public void onStepClicked(int position) {
-                startActivity(RecipeDetailsActivity.getCallingIntent(getContext(), position, recipeDatum));
+                if (twoPaneLayout) {
+                    mCallback.onIngredientSelected(position);
+
+
+                } else {
+                    startActivity(RecipeDetailsActivity.getCallingIntent(getContext(), position, recipeDatum));
+                }
             }
         };
 
@@ -152,13 +170,12 @@ public class RecipeStepsFragment extends Fragment {
     @Override
     public void onSaveInstanceState(Bundle currentState) {
         currentState.putSerializable(RECIPE_DATA, recipeDatum);
+        currentState.putBoolean(TWO_PANE_LAYOUT, twoPaneLayout);
     }
 
     public class MySimpleArrayAdapter extends ArrayAdapter<Ingredient> {
         private final Context context;
         private final List<Ingredient> values;
-
-
 
 
         public MySimpleArrayAdapter(Context context, List<Ingredient> values) {
@@ -173,8 +190,8 @@ public class RecipeStepsFragment extends Fragment {
             LayoutInflater inflater = (LayoutInflater) context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             View rowView = inflater.inflate(R.layout.cell_ingredients, parent, false);
-            TextView tv_ingredient =  rowView.findViewById(R.id.tv_ingredient);
-            TextView tv_quantity =  rowView.findViewById(R.id.tv_quantity);
+            TextView tv_ingredient = rowView.findViewById(R.id.tv_ingredient);
+            TextView tv_quantity = rowView.findViewById(R.id.tv_quantity);
             TextView tv_measure = rowView.findViewById(R.id.tv_measure);
 
             tv_ingredient.setText(values.get(position).getIngredient());
