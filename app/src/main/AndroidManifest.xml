@@ -20,7 +20,8 @@
         </activity>
         <activity android:name=".Features.RecipeSteps.RecipeStepsActivity" />
         <activity android:name=".Features.RecipeDetails.RecipeDetailsActivity" />
-        <activity android:name=".Features.common.BaseActivity"></activity>
+        <activity android:name=".Features.common.BaseActivity" />
+        <activity android:name=".Features.common.BaseActivitySteps"></activity>
     </application>
 
 </manifest>

@@ -4,14 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Features.RecipeSteps.RecipeStepsActivity">
-
-
+    tools:context=".Features.RecipeSteps.RecipeStepsActivity"
+    android:background="@color/colorAccent">
 
     <FrameLayout
-        android:id="@+id/recyclerview_RecipeSteps_container"
+        android:id="@+id/recyclerview_container_steps"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-         />
+        />
 
 </android.support.constraint.ConstraintLayout>

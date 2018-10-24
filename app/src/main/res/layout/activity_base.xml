@@ -10,7 +10,7 @@
 
 
     <FrameLayout
-        android:id="@+id/recyclerview_container"
+        android:id="@+id/recyclerview_container_allrecipes"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         />
