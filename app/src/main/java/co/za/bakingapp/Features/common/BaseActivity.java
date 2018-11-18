@@ -4,8 +4,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-
-import co.za.bakingapp.Features.GetAllRecipes.GetAllRecipesFragment;
 import co.za.bakingapp.R;
 
 public class BaseActivity extends AppCompatActivity {

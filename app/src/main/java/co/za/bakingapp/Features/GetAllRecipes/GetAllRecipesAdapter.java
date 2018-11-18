@@ -67,7 +67,7 @@ public class GetAllRecipesAdapter extends RecyclerView.Adapter<GetAllRecipesAdap
     }
 
 
-    static class GetAllRecipesViewHolder extends RecyclerView.ViewHolder {
+    public  static class GetAllRecipesViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.tv_recipe_title)
         TextView tv_recipe_title;
 
